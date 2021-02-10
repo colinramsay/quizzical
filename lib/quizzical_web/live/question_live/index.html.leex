@@ -1,0 +1,13 @@
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, QuizzicalWeb.QuestionLive.FormComponent,
+    id: @question.id || :new,
+    title: @page_title,
+    action: @live_action,
+    question: @question,
+    categories: @categories,
+    return_to: Routes.question_index_path(@socket, :index) %>
+<% end %>
+
+<%= live_patch "New Question", to: Routes.question_index_path(@socket, :new), class: 'button' %>
+
+<%= live_component(socket, QuizzicalWeb.ListComponent, [socket: @socket, questions: @questions]) %>

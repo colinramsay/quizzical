@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Quizzical", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body>
+    <div>
+    <nav class="bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
+                <%= link "Home", to: Routes.question_index_path(@conn, :index), class: "bg-gray-900" %>
+                <%= link "Categories", to: Routes.category_index_path(@conn, :index) %>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-4 flex items-center md:ml-6">
+
+                <%= if @current_user do %>
+  <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
+  <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+
+  <%= @current_user.email %>
+
+<% else %>
+  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+<% end %>
+              <!-- Profile dropdown -->
+              <div class="ml-3 relative">
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </nav>
+
+    <main>
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Replace with your content -->
+        <div class="px-4 py-6 sm:px-0">
+
+
+          <main role="main" class="container">
+    <%= @inner_content %>
+      </main>
+
+        </div>
+        <!-- /End replace -->
+      </div>
+    </main>
+  </body>
+</html>

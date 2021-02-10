@@ -1,0 +1,25 @@
+
+<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+  <table class="min-w-full divide-y divide-gray-200">
+    <tbody class="bg-white divide-y divide-gray-200">
+      <%= for question <- @questions do %>
+        <tr>
+          <td class="px-6 py-4">
+            <%= question.question %>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <%= if question.category, do: question.category.name %>
+            </td>
+
+                <td class="action-cell">
+                  <%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %>
+                </td>
+
+                    <td class="action-cell">
+                      <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %>
+                    </td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,31 @@
+
+<%= f = form_for @changeset, "#",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <div class="modal-content">
+    <div class="w-full">
+      <h3 class="modal-header mb-4" id="modal-headline">
+        <%= @title %>
+      </h3>
+
+      <div>
+
+        <%= select f, :category_id, Enum.map(@categories, &({&1.name, &1.id})) %>
+
+        <%= label f, :question, class: 'block text-sm font-medium text-gray-700' %>
+        <%= text_input f, :question, class: 'form-input' %>
+        <%= error_tag f, :question %>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-buttons mt-4">
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    <button type="button">
+      <%= live_patch "Cancel", to: @return_to %>
+    </button>
+  </div>
+
+</form>

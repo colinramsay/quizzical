@@ -1,0 +1,27 @@
+<h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Question Categories</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, QuizzicalWeb.CategoryLive.FormComponent,
+    id: @category.id || :new,
+    title: @page_title,
+    action: @live_action,
+    category: @category,
+    return_to: Routes.category_index_path(@socket, :index) %>
+<% end %>
+
+<%= live_patch "New Category", to: Routes.category_index_path(@socket, :new), class: 'button mt-4' %>
+
+<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+  <table class="min-w-full divide-y divide-gray-200">
+    <tbody class="bg-white divide-y divide-gray-200" id="categories">
+    <%= for category <- @categories do %>
+      <tr id="category-<%= category.id %>">
+        <td class="px-6 py-4 whitespace-nowrap"><%= live_patch category.name, to: Routes.category_show_path(@socket, :show, category) %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= category.question_count %> questions in this category
+           <td class="action-cell"><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category) %></td>
+          <td class="action-cell"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
