@@ -36,8 +36,7 @@
   <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
   <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
 
-  <%= @current_user.email %>
-
+  <span class="text-white px-3 py-2 text-sm font-medium bg-gray-900 rounded-md">  <%= @current_user.email %></span>
 <% else %>
   <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
   <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>

@@ -89,10 +89,8 @@ defmodule QuizzicalWeb.UserAuth do
   and remember me token.
   """
   def fetch_current_user(conn, _opts) do
-    IO.puts("fetching...")
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
-    IO.inspect(user)
     assign(conn, :current_user, user)
   end
 

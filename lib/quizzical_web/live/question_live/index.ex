@@ -9,7 +9,6 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {:ok,
       socket
       |> assign(:questions, list_questions())
-      |> assign(:current_user, nil)
     }
   end
 
