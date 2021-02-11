@@ -8,8 +8,14 @@ defmodule Quizzical.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    field :is_admin, :boolean
 
     timestamps()
+  end
+
+  def admin_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:is_admin])
   end
 
   @doc """

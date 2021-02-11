@@ -1,4 +1,6 @@
-<h1>Show Category</h1>
+<h1><%= @category.name %> questions</h1>
+
+<%= live_patch "Edit", to: Routes.category_show_path(@socket, :edit, @category), class: "button mt-4" %>
 
 <%= if @live_action in [:edit] do %>
   <%= live_modal @socket, QuizzicalWeb.CategoryLive.FormComponent,
@@ -9,16 +11,6 @@
     return_to: Routes.category_show_path(@socket, :show, @category) %>
 <% end %>
 
-<ul>
+<%= live_component(socket, QuizzicalWeb.ListComponent, [socket: @socket, questions: @questions, current_user: @current_user]) %>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @category.name %>
-  </li>
-
-</ul>
-
-<%= live_component(socket, QuizzicalWeb.ListComponent, [socket: @socket, questions: @questions]) %>
-
-<span><%= live_patch "Edit", to: Routes.category_show_path(@socket, :edit, @category), class: "button" %></span>
-<span><%= live_redirect "Back", to: Routes.category_index_path(@socket, :index) %></span>
+<%= live_redirect "Back to the Category list", to: Routes.category_index_path(@socket, :index), class: 'mt-4 block text-right' %>

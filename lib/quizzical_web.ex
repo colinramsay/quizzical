@@ -47,6 +47,8 @@ defmodule QuizzicalWeb do
       use Phoenix.LiveView,
         layout: {QuizzicalWeb.LayoutView, "live.html"}
 
+      import Quizzical.LiveHelpers
+
       unquote(view_helpers())
     end
   end

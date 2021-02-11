@@ -5,8 +5,11 @@ defmodule QuizzicalWeb.CategoryLive.Index do
   alias Quizzical.Categories.Category
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :categories, list_categories())}
+  def mount(_params, session, socket) do
+    {:ok,
+     socket
+     |> assign(:categories, list_categories())
+     |> assign_defaults(session)}
   end
 
   @impl true

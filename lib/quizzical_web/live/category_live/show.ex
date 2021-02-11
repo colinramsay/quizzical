@@ -4,13 +4,16 @@ defmodule QuizzicalWeb.CategoryLive.Show do
   alias Quizzical.Categories
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(_params, session, socket) do
+    {:ok,
+     socket
+     |> assign_defaults(session)}
   end
 
   @impl true
-  def handle_params(%{"slug" => slug}, _, socket) do
+  def handle_params(%{"slug" => slug}, _session, socket) do
     category = Categories.get_category_by_slug!(slug)
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))

@@ -6,6 +6,7 @@ defmodule Quizzical.Questions.Question do
 
   schema "questions" do
     field :question, :string
+    field :answer, :string
     belongs_to :category, Category
 
     timestamps()
@@ -14,7 +15,7 @@ defmodule Quizzical.Questions.Question do
   @doc false
   def changeset(question, attrs) do
     question
-    |> cast(attrs, [:question, :category_id])
-    |> validate_required([:question, :category_id])
+    |> cast(attrs, [:question, :answer, :category_id])
+    |> validate_required([:question, :answer, :category_id])
   end
 end

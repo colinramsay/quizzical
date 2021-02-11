@@ -5,19 +5,25 @@
       <%= for question <- @questions do %>
         <tr>
           <td class="px-6 py-4">
-            <%= question.question %>
+            <%= question.question %>?
+          </td>
+          <td class="px-6 py-4">
+            <%= question.answer %>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
-            <%= if question.category, do: question.category.name %>
-            </td>
+            <span class="rounded bg-indigo-600 py-1 px-2 text-sm text-white hover:bg-indigo-800"><%= live_patch question.category.name, to: Routes.category_show_path(@socket, :show, question.category) %></span>
+          </td>
+          <%= if @current_user && @current_user.is_admin do %>
+          <td class="action-cell">
+            <%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %>
+          </td>
+          <% end %>
 
-                <td class="action-cell">
-                  <%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %>
-                </td>
-
-                    <td class="action-cell">
-                      <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %>
-                    </td>
+          <%= if @current_user && @current_user.is_admin do %>
+          <td class="action-cell">
+            <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %>
+          </td>
+          <% end %>
         </tr>
         <% end %>
     </tbody>
