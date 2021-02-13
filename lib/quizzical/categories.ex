@@ -38,7 +38,7 @@ defmodule Quizzical.Categories do
   def get_category!(id), do: Repo.get!(Category, id)
 
   def get_category_by_slug!(slug) do
-    Repo.get_by!(Category, slug: slug) |> Repo.preload(questions: :categories)
+    Repo.get_by!(Category, slug: slug)
   end
 
   def get_categories(nil), do: []

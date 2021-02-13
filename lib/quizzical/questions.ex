@@ -4,9 +4,7 @@ defmodule Quizzical.Questions do
   """
 
   import Ecto.Query, warn: false
-  import Ecto.Changeset
   alias Quizzical.Repo
-  alias Quizzical.Categories.Category
   alias Quizzical.Questions.Question
 
   @doc """
@@ -18,8 +16,19 @@ defmodule Quizzical.Questions do
       [%Question{}, ...]
 
   """
-  def list_questions do
-    Repo.all(Question) |> Repo.preload(:categories)
+  def list_questions(paginate_options) do
+    Repo.paginate(Question, paginate_options) |> Repo.all() |> Repo.preload(:categories)
+  end
+
+  def list_by_category_id(id, paginate_options) do
+    query =
+      from q in Question,
+        join: qc in "questions_categories",
+        on: qc.question_id == q.id,
+        where: qc.category_id == ^id,
+        preload: [:categories]
+
+    Repo.paginate(query, paginate_options) |> Repo.all()
   end
 
   def new_question do

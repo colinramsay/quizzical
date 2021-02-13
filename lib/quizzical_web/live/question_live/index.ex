@@ -9,13 +9,15 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {
       :ok,
       socket
-      |> assign(:questions, list_questions())
       |> assign_defaults(session)
     }
   end
 
   @impl true
+  @spec handle_params(any, any, Phoenix.LiveView.Socket.t()) ::
+          {:noreply, Phoenix.LiveView.Socket.t()}
   def handle_params(params, _url, socket) do
+    # page = String.to_integer(params["page"] || "1")
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
@@ -33,10 +35,17 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     |> assign(:question, Questions.new_question())
   end
 
-  defp apply_action(socket, :index, _params) do
+  defp apply_action(socket, :index, params) do
+    page = String.to_integer(params["page"] || "1")
+    paginate_options = %{page: page}
+
+    questions = Quizzical.Questions.list_questions(paginate_options)
+
     socket
     |> assign(:page_title, "Listing Questions")
     |> assign(:question, nil)
+    |> assign(:questions, questions)
+    |> assign(:options, paginate_options)
   end
 
   @impl true
@@ -45,10 +54,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {:ok, _} = Questions.delete_question(question)
 
     {:noreply,
-     assign(socket, :questions, list_questions()) |> put_flash(:info, "Question deleted")}
-  end
-
-  defp list_questions do
-    Questions.list_questions()
+     assign(socket, :questions, Quizzical.Questions.list_questions())
+     |> put_flash(:info, "Question deleted")}
   end
 end

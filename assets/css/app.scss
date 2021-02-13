@@ -5,6 +5,13 @@
 
 @tailwind components;
 
+.pagination {
+  @apply mt-6;
+  a {
+    @apply relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50
+  }
+}
+
 h1 {
   @apply text-3xl font-extrabold text-gray-900 tracking-tight mb-6;
 }
