@@ -19,11 +19,11 @@ defmodule Quizzical.Questions do
 
   """
   def list_questions do
-    Repo.all(Question) |> Repo.preload(:category)
+    Repo.all(Question) |> Repo.preload(:categories)
   end
 
   def new_question do
-    %Question{} |> Repo.preload(:category)
+    %Question{} |> Repo.preload(:categories)
   end
 
   @doc """
@@ -41,7 +41,7 @@ defmodule Quizzical.Questions do
 
   """
   def get_question!(id) do
-    Repo.get!(Question, id) |> Repo.preload(:category)
+    Repo.get!(Question, id) |> Repo.preload(:categories)
   end
 
   @doc """
@@ -57,6 +57,8 @@ defmodule Quizzical.Questions do
 
   """
   def create_question(attrs \\ %{}) do
+    # IO.inspect(get_category_names(attrs["categories"])
+
     %Question{}
     |> Question.changeset(attrs)
     |> update_parent_count(1)
@@ -96,7 +98,7 @@ defmodule Quizzical.Questions do
   def delete_question(%Question{} = question) do
     Question.changeset(question, %{})
     |> update_parent_count(-1)
-    |> Repo.delete!
+    |> Repo.delete!()
   end
 
   @doc """
@@ -115,14 +117,11 @@ defmodule Quizzical.Questions do
   defp update_parent_count(changeset, value) do
     changeset
     |> prepare_changes(fn changeset ->
-      IO.puts("ooter")
-      IO.inspect(get_field(changeset, :category_id))
-
       if category_id = get_field(changeset, :category_id) do
-        IO.puts("inner")
         query = from Category, where: [id: ^category_id]
         changeset.repo.update_all(query, inc: [question_count: value])
       end
+
       changeset
     end)
   end

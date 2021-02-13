@@ -11,7 +11,9 @@
             <%= question.answer %>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
-            <span class="rounded bg-indigo-600 py-1 px-2 text-sm text-white hover:bg-indigo-800"><%= live_patch question.category.name, to: Routes.category_show_path(@socket, :show, question.category) %></span>
+            <%= for category <- question.categories do %>
+            <span class="rounded bg-indigo-600 py-1 px-2 text-sm text-white hover:bg-indigo-800"><%= live_patch category.name, to: Routes.category_show_path(@socket, :show, category) %></span>
+            <% end  %>
           </td>
           <%= if @current_user && @current_user.is_admin do %>
           <td class="action-cell">

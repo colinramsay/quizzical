@@ -13,12 +13,47 @@ import "../css/app.scss"
 //     import socket from "./socket"
 //
 import "phoenix_html"
-import {Socket} from "phoenix"
+import { Socket } from "phoenix"
 import NProgress from "nprogress"
-import {LiveSocket} from "phoenix_live_view"
+import { LiveSocket } from "phoenix_live_view"
+
+
+let Hooks = {}
+Hooks.SelectCategories = {
+    mounted() {
+        let hook = this,
+            $select = jQuery(hook.el).find("select");
+
+        $select.select2({
+            multiple: true, tags: true,
+            createTag(params) {
+                var term = jQuery.trim(params.term);
+
+                // Empty or only a number
+                if (term === '' || /^\d+$/.test(term)) {
+                    return null;
+                }
+
+                return {
+                    id: term,
+                    text: term
+                }
+            }
+        })
+            .on("select2:select", (e) => hook.selected(hook, e))
+
+        return $select;
+    },
+
+    selected(hook, event) {
+        let id = event.params.data.id;
+        console.log(id)
+        //hook.pushEvent("country_selected", { country: id })
+    }
+}
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, { hooks: Hooks, params: { _csrf_token: csrfToken } })
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())

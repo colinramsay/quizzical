@@ -2,12 +2,13 @@ defmodule Quizzical.Categories.Category do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Quizzical.Questions.Question
+
   schema "categories" do
     field :name, :string
     field :slug, :string
     field :question_count, :integer, default: 0
-    has_many :questions, Quizzical.Questions.Question
-    timestamps()
+    many_to_many :questions, Question, join_through: "questions_categories"
   end
 
   @doc false
@@ -18,17 +19,16 @@ defmodule Quizzical.Categories.Category do
     |> slugify_name()
   end
 
-
   defp slugify_name(changeset) do
-   case fetch_change(changeset, :name) do
-    {:ok, new_name}-> put_change(changeset,:slug, slugify(new_name))
-    :error-> changeset
-   end
+    case fetch_change(changeset, :name) do
+      {:ok, new_name} -> put_change(changeset, :slug, slugify(new_name))
+      :error -> changeset
+    end
   end
 
-  defp slugify(str) do
+  def slugify(str) do
     str
     |> String.downcase()
-    |> String.replace(~r/[^\w-]+/u,"-")
+    |> String.replace(~r/[^\w-]+/u, "-")
   end
 end

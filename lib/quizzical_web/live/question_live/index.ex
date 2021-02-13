@@ -14,13 +14,6 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     }
   end
 
-  # def mount(_params, _session, socket) do
-  #   {
-  #     :ok,
-  #     assign(socket, %{questions: list_questions(), current_user: nil})
-  #   }
-  # end
-
   @impl true
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}

@@ -12,7 +12,9 @@
 
       <div>
 
-        <%= select f, :category_id, Enum.map(@categories, &({&1.name, &1.id})) %>
+        <div id="SelectCategories" phx-hook="SelectCategories" phx-update="ignore">
+          <%= multiple_select f, :categories, Enum.map(@categories, &(&1.name)), selected: Enum.map(@question.categories, &(&1.name)) %>
+        </div>
 
         <%= label f, :question, class: 'block text-sm font-medium text-gray-700' %>
         <%= text_input f, :question, class: 'form-input' %>
@@ -27,9 +29,11 @@
 
   <div class="modal-buttons mt-4">
       <%= submit "Save", phx_disable_with: "Saving..." %>
-    <button type="button">
-      <%= live_patch "Cancel", to: @return_to %>
-    </button>
+
+      <%= live_patch to: @return_to do %>
+      <button type="button">Cancel</button>
+      <% end %>
+
   </div>
 
 </form>
