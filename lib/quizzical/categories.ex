@@ -38,7 +38,7 @@ defmodule Quizzical.Categories do
   def get_category!(id), do: Repo.get!(Category, id)
 
   def get_category_by_slug!(slug) do
-    Repo.get_by!(Category, slug: slug) |> Repo.preload(questions: :category)
+    Repo.get_by!(Category, slug: slug) |> Repo.preload(questions: :categories)
   end
 
   def get_categories(nil), do: []
@@ -46,7 +46,6 @@ defmodule Quizzical.Categories do
   def get_categories(ids) do
     Repo.all(from a in Category, where: a.id in ^ids)
   end
-
 
   @doc """
   Creates a category.

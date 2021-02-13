@@ -7,14 +7,13 @@ defmodule Quizzical.Categories.Category do
   schema "categories" do
     field :name, :string
     field :slug, :string
-    field :question_count, :integer, default: 0
     many_to_many :questions, Question, join_through: "questions_categories"
   end
 
   @doc false
   def changeset(category, attrs) do
     category
-    |> cast(attrs, [:name, :question_count])
+    |> cast(attrs, [:name])
     |> validate_required([:name])
     |> slugify_name()
   end

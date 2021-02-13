@@ -6,7 +6,7 @@
 @tailwind components;
 
 h1 {
-  @apply text-3xl font-extrabold text-gray-900 tracking-tight
+  @apply text-3xl font-extrabold text-gray-900 tracking-tight mb-6;
 }
 
 .auth-container {

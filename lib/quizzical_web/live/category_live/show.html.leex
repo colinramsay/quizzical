@@ -1,7 +1,8 @@
 <h1><%= @category.name %> questions</h1>
 
+<%= if @current_user && @current_user.is_admin do %>
 <%= live_patch "Edit", to: Routes.category_show_path(@socket, :edit, @category), class: "button mt-4" %>
-
+<% end  %>
 <%= if @live_action in [:edit] do %>
   <%= live_modal @socket, QuizzicalWeb.CategoryLive.FormComponent,
     id: @category.id,

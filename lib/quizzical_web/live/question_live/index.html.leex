@@ -8,8 +8,10 @@
     return_to: Routes.question_index_path(@socket, :index) %>
 <% end %>
 
+<%= if @current_user && @current_user.is_admin do %>
 <%= live_patch to: Routes.question_index_path(@socket, :new) do %>
 <button class="button" autofocus>New question</button>
+<% end %>
 <% end %>
 
 <%= live_component(socket, QuizzicalWeb.ListComponent, [socket: @socket, questions: @questions, current_user: @current_user]) %>

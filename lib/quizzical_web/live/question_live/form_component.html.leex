@@ -11,11 +11,6 @@
       </h3>
 
       <div>
-
-        <div id="SelectCategories" phx-hook="SelectCategories" phx-update="ignore">
-          <%= multiple_select f, :categories, Enum.map(@categories, &(&1.name)), selected: Enum.map(@question.categories, &(&1.name)) %>
-        </div>
-
         <%= label f, :question, class: 'block text-sm font-medium text-gray-700' %>
         <%= text_input f, :question, class: 'form-input' %>
 
@@ -23,6 +18,12 @@
         <%= label f, :answer, class: 'block text-sm font-medium text-gray-700' %>
         <%= text_input f, :answer, class: 'form-input' %>
         <%= error_tag f, :answer %>
+
+        <%= label f, "Categories", class: 'block text-sm font-medium text-gray-700' %>
+
+        <div id="SelectCategories" phx-hook="SelectCategories" phx-update="ignore">
+          <%= multiple_select f, :categories, Enum.map(@categories, &(&1.name)), selected: Enum.map(@question.categories, &(&1.name)), style: "width: 100%" %>
+        </div>
       </div>
     </div>
   </div>

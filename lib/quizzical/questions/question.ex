@@ -30,7 +30,7 @@ defmodule Quizzical.Questions.Question do
 
   defp insert_and_get_all_categories(names) do
     # Convert the array of category names into an array of { name: "name" } maps
-    maps = Enum.map(names, &%{name: &1})
+    maps = Enum.map(names, &%{name: &1, slug: Category.slugify(&1)})
 
     # Insert all of those categories into the database, if theres's a naming conflict
     # just ignore it. That means we can insert all the categories each time and not care about duplicates.

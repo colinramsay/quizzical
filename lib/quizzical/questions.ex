@@ -61,7 +61,6 @@ defmodule Quizzical.Questions do
 
     %Question{}
     |> Question.changeset(attrs)
-    |> update_parent_count(1)
     |> Repo.insert()
   end
 
@@ -97,7 +96,6 @@ defmodule Quizzical.Questions do
   """
   def delete_question(%Question{} = question) do
     Question.changeset(question, %{})
-    |> update_parent_count(-1)
     |> Repo.delete!()
   end
 
@@ -112,17 +110,5 @@ defmodule Quizzical.Questions do
   """
   def change_question(%Question{} = question, attrs \\ %{}) do
     Question.changeset(question, attrs)
-  end
-
-  defp update_parent_count(changeset, value) do
-    changeset
-    |> prepare_changes(fn changeset ->
-      if category_id = get_field(changeset, :category_id) do
-        query = from Category, where: [id: ^category_id]
-        changeset.repo.update_all(query, inc: [question_count: value])
-      end
-
-      changeset
-    end)
   end
 end
