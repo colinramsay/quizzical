@@ -17,7 +17,12 @@ defmodule QuizzicalWeb.QuestionLive.Index do
   @spec handle_params(any, any, Phoenix.LiveView.Socket.t()) ::
           {:noreply, Phoenix.LiveView.Socket.t()}
   def handle_params(params, _url, socket) do
-    # page = String.to_integer(params["page"] || "1")
+    page = String.to_integer(params["page"] || "1")
+    paginate_options = %{page: page, per_page: 5}
+    question_page = Quizzical.Questions.list_questions(paginate_options)
+
+    socket = assign(socket, options: paginate_options, question_page: question_page)
+
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
@@ -36,16 +41,9 @@ defmodule QuizzicalWeb.QuestionLive.Index do
   end
 
   defp apply_action(socket, :index, params) do
-    page = String.to_integer(params["page"] || "1")
-    paginate_options = %{page: page, per_page: 5}
-
-    question_page = Quizzical.Questions.list_questions(paginate_options)
-
     socket
     |> assign(:page_title, "Listing Questions")
     |> assign(:question, nil)
-    |> assign(:question_page, question_page)
-    |> assign(:options, paginate_options)
   end
 
   @impl true
