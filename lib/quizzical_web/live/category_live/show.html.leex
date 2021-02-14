@@ -12,7 +12,7 @@
     return_to: Routes.category_show_path(@socket, :show, @category) %>
 <% end %>
 
-<%= live_component(socket, QuizzicalWeb.ListComponent, [options: @options, socket: @socket, questions: @questions, current_user: @current_user]) %>
+<%= live_component(socket, QuizzicalWeb.ListComponent, [options: @options, socket: @socket, question_page: @question_page, current_user: @current_user]) %>
 
 <div class="pagination">
   <%= live_patch to: Routes.category_show_path(@socket, :show, @category, page: @options.page - 1), class: 'previous' do %>

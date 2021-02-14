@@ -17,7 +17,8 @@ defmodule Quizzical.Questions do
 
   """
   def list_questions(paginate_options) do
-    Repo.paginate(Question, paginate_options) |> Repo.all() |> Repo.preload(:categories)
+    query = from q in Question, preload: :categories
+    Repo.paginate(query, paginate_options)
   end
 
   def list_by_category_id(id, paginate_options) do
@@ -28,7 +29,7 @@ defmodule Quizzical.Questions do
         where: qc.category_id == ^id,
         preload: [:categories]
 
-    Repo.paginate(query, paginate_options) |> Repo.all()
+    Repo.paginate(query, paginate_options)
   end
 
   def new_question do

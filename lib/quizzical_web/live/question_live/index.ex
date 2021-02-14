@@ -37,14 +37,14 @@ defmodule QuizzicalWeb.QuestionLive.Index do
 
   defp apply_action(socket, :index, params) do
     page = String.to_integer(params["page"] || "1")
-    paginate_options = %{page: page}
+    paginate_options = %{page: page, per_page: 5}
 
-    questions = Quizzical.Questions.list_questions(paginate_options)
+    question_page = Quizzical.Questions.list_questions(paginate_options)
 
     socket
     |> assign(:page_title, "Listing Questions")
     |> assign(:question, nil)
-    |> assign(:questions, questions)
+    |> assign(:question_page, question_page)
     |> assign(:options, paginate_options)
   end
 
@@ -56,5 +56,19 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {:noreply,
      assign(socket, :questions, Quizzical.Questions.list_questions())
      |> put_flash(:info, "Question deleted")}
+  end
+
+  defp question_page_info(
+         %{options: %{page: page, per_page: per_page}, question_page: %{total: total}} = assigns
+       ) do
+    from = per_page * (page - 1) + 1
+    to = per_page * (page - 1) + per_page
+    fto = if to > total, do: total, else: to
+
+    ~L"""
+      <p class="totaliser">
+        Showing questions <%= from %> to <%= fto  %> of <%= total %>
+      </p>
+    """
   end
 end

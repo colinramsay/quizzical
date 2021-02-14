@@ -8,6 +8,9 @@ defmodule Quizzical.Repo do
   def paginate(query, paginate_options) do
     %{page: page, per_page: per_page} = Map.merge(%{per_page: 100}, paginate_options)
 
-    from q in query, offset: (^page - 1) * ^per_page, limit: ^per_page
+    %{
+      results: all(from q in query, offset: (^page - 1) * ^per_page, limit: ^per_page),
+      total: aggregate(query, :count, :id)
+    }
   end
 end

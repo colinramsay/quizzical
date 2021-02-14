@@ -5,10 +5,22 @@
 
 @tailwind components;
 
+.totaliser {
+  @apply text-sm;
+}
+
 .pagination {
-  @apply mt-6;
+  @apply mt-6 flex justify-between items-center;
   a {
-    @apply relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50
+    @apply relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50
+  }
+
+  .next {
+    @apply rounded-r-md;
+  }
+
+  .previous {
+    @apply rounded-l-md;
   }
 }
 
