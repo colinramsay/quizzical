@@ -12,7 +12,7 @@ use Mix.Config
 config :quizzical, QuizzicalWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "pubquizbuilder.com", port: 443],
-  force_ssl: [hsts: true],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
