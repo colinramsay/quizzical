@@ -1,4 +1,4 @@
-<h1><%= @category.name %> questions</h1>
+<h2><%= @category.name %> questions</h2>
 
 <%= if @current_user && @current_user.is_admin do %>
 <%= live_patch "Edit", to: Routes.category_show_path(@socket, :edit, @category), class: "button mt-4" %>

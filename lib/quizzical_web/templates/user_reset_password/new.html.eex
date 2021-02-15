@@ -1,4 +1,4 @@
-<h1>Forgot your password?</h1>
+<h2>Forgot your password?</h2>
 
 <%= form_for :user, Routes.user_reset_password_path(@conn, :create), fn f -> %>
   <%= label f, :email %>
