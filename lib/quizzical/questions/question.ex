@@ -21,7 +21,18 @@ defmodule Quizzical.Questions.Question do
     question
     |> cast(attrs, [:question, :answer])
     |> validate_required([:question, :answer])
+    |> strip_questionmark()
     |> Ecto.Changeset.put_assoc(:categories, insert_and_get_all_categories(categories))
+  end
+
+  defp strip_questionmark(changeset) do
+    case fetch_change(changeset, :question) do
+      {:ok, new_question} ->
+        put_change(changeset, :question, String.replace(new_question, ~r/[[:punct:]]$/, ""))
+
+      :error ->
+        changeset
+    end
   end
 
   # defp insert_and_get_all_categories([]) do

@@ -9,6 +9,8 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {
       :ok,
       socket
+      |> assign(:uploaded_files, [])
+      |> allow_upload(:question_data, accept: ~w(.json), max_entries: 2)
       |> assign_defaults(session)
     }
   end
@@ -18,7 +20,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
           {:noreply, Phoenix.LiveView.Socket.t()}
   def handle_params(params, _url, socket) do
     page = String.to_integer(params["page"] || "1")
-    paginate_options = %{page: page, per_page: 5}
+    paginate_options = %{page: page, per_page: 250}
     question_page = Quizzical.Questions.list_questions(paginate_options)
 
     socket = assign(socket, options: paginate_options, question_page: question_page)
@@ -40,7 +42,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     |> assign(:question, Questions.new_question())
   end
 
-  defp apply_action(socket, :index, params) do
+  defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Questions")
     |> assign(:question, nil)
@@ -54,6 +56,21 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {:noreply,
      assign(socket, :questions, Quizzical.Questions.list_questions())
      |> put_flash(:info, "Question deleted")}
+  end
+
+  def handle_event("validate_upload", _params, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("save_upload", _params, socket) do
+    uploaded_files =
+      consume_uploaded_entries(socket, :question_data, fn %{path: path}, _entry ->
+        raw = File.read!(path)
+        questions = Jason.decode!(raw)
+        Questions.create_questions(questions)
+      end)
+
+    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
   end
 
   defp question_page_info(

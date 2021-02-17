@@ -9,6 +9,16 @@
 <% end %>
 
 <%= if @current_user && @current_user.is_admin do %>
+
+<form phx-submit="save_upload" phx-change="validate_upload">
+<%= for entry <- @uploads.question_data.entries do %>
+<%= entry.client_name %> - <%= entry.progress %>%
+<% end %>
+  <%= live_file_input @uploads.question_data %>
+  <button class="button" type="submit">Upload</button>
+</form>
+
+
 <%= live_patch to: Routes.question_index_path(@socket, :new) do %>
 <button class="button" autofocus>New question</button>
 <% end %>

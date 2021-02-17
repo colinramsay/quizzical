@@ -8,6 +8,25 @@ defmodule Quizzical.Questions do
   alias Quizzical.Questions.Question
 
   @doc """
+  ### Examples
+  iex> create_questions([%{"question": "q", "answer": "a", "categories": ["cat1", "cat2"]},%{...}])
+  """
+  def create_questions(questions_attrs) do
+    questions_attrs
+    |> Enum.with_index()
+    |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
+      IO.inspect(attrs)
+
+      question_changeset =
+        %Question{}
+        |> Question.changeset(attrs)
+
+      Ecto.Multi.insert(multi, {:question, idx}, question_changeset)
+    end)
+    |> Repo.transaction()
+  end
+
+  @doc """
   Returns the list of questions.
 
   ## Examples
@@ -67,8 +86,6 @@ defmodule Quizzical.Questions do
 
   """
   def create_question(attrs \\ %{}) do
-    # IO.inspect(get_category_names(attrs["categories"])
-
     %Question{}
     |> Question.changeset(attrs)
     |> Repo.insert()
