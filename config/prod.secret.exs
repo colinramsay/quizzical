@@ -14,6 +14,7 @@ database_url =
 config :quizzical, Quizzical.Repo,
   ssl: true,
   url: database_url,
+  timeout: 60_000,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 secret_key_base =
