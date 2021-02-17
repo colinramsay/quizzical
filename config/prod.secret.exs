@@ -10,7 +10,7 @@ config :quizzical, Quizzical.Mailer,
   # SendGrid API Key ID: ej9BH7EQTI6gSKV4udCheg
   api_key:
     System.get_env("SENDGRID_API_KEY") ||
-      raise("enviroment variable for SENDGRID_API_KEY mising",
+      raise "enviroment variable for SENDGRID_API_KEY mising",
         hackney_opts: [
           recv_timeout: :timer.minutes(1)
         ]
