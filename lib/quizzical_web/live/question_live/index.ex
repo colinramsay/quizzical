@@ -20,7 +20,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
           {:noreply, Phoenix.LiveView.Socket.t()}
   def handle_params(params, _url, socket) do
     page = String.to_integer(params["page"] || "1")
-    paginate_options = %{page: page}
+    paginate_options = %{page: page, per_page: 100}
     question_page = Quizzical.Questions.list_questions(paginate_options)
 
     socket = assign(socket, options: paginate_options, question_page: question_page)
