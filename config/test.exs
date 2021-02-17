@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :quizzical, Quizzical.Mailer, adapter: Bamboo.TestAdapter
+
 # Only in tests, remove the complexity from the password hashing algorithm
 config :bcrypt_elixir, :log_rounds, 1
 

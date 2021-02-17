@@ -4,6 +4,18 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
+config :quizzical, Quizzical.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  # API Key name: Quizzical Mail Sending
+  # SendGrid API Key ID: ej9BH7EQTI6gSKV4udCheg
+  api_key:
+    System.get_env("SENDGRID_API_KEY") ||
+      raise("enviroment variable for SENDGRID_API_KEY mising",
+        hackney_opts: [
+          recv_timeout: :timer.minutes(1)
+        ]
+      )
+
 database_url =
   System.get_env("DATABASE_URL") ||
     raise """

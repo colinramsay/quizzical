@@ -1,15 +1,23 @@
-<h2>Resend confirmation instructions</h2>
+<div class="auth-container">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2>
+        Resend confirmation instructions
+      </h2>
+    </div>
 
-<%= form_for :user, Routes.user_confirmation_path(@conn, :create), fn f -> %>
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+    <%= form_for :user, Routes.user_confirmation_path(@conn, :create), [class: 'auth'], fn f -> %>
+      <%= label f, :email, class: 'sr-only' %>
+      <%= email_input f, :email, required: true, placeholder: 'Email address' %>
 
-  <div>
-    <%= submit "Resend confirmation instructions" %>
+      <div>
+        <%= submit "Resend confirmation instructions" %>
+      </div>
+    <% end %>
+
+    <p>
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "font-medium text-indigo-600 hover:text-indigo-500" %> |
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+    </p>
   </div>
-<% end %>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+</div>

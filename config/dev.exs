@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :quizzical, Quizzical.Mailer, adapter: Bamboo.LocalAdapter
+
 # Configure your database
 config :quizzical, Quizzical.Repo,
   username: "postgres",
