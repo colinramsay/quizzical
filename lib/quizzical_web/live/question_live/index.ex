@@ -20,7 +20,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
           {:noreply, Phoenix.LiveView.Socket.t()}
   def handle_params(params, _url, socket) do
     page = String.to_integer(params["page"] || "1")
-    paginate_options = %{page: page, per_page: 250}
+    paginate_options = %{page: page}
     question_page = Quizzical.Questions.list_questions(paginate_options)
 
     socket = assign(socket, options: paginate_options, question_page: question_page)
@@ -81,7 +81,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     fto = if to > total, do: total, else: to
 
     ~L"""
-      <p class="totaliser">
+      <p class="totaliser hidden sm:block">
         Showing questions <%= from %> to <%= fto  %> of <%= total %>
       </p>
     """

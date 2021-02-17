@@ -1,13 +1,13 @@
 
-<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-  <table class="min-w-full divide-y divide-gray-200">
-    <tbody class="bg-white divide-y divide-gray-200">
+<div class="sm:shadow sm:border-b sm:border-gray-200 sm:rounded-lg">
+  <table class="divide-y divide-gray-200">
+    <tbody class="">
       <%= for question <- @question_page.results do %>
-        <tr>
-          <td class="px-6 py-4">
-            <%= question.question %>?
+        <tr class="flex flex-col sm:table-row mb-6 sm:mb-0 rounded-lg sm:rounded-none border sm:border-0 sm:border-b">
+          <td class="px-6 py-4 break-all sm:break-normal">
+            <strong><%= question.question %>?</strong>
           </td>
-          <td class="px-6 py-4">
+          <td class="px-6 sm:py-4 py-2">
             <%= question.answer %>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
@@ -16,13 +16,13 @@
             <% end  %>
           </td>
           <%= if @current_user && @current_user.is_admin do %>
-          <td class="action-cell">
+          <td class="action-cell hidden sm:block">
             <%= live_patch "Edit", to: Routes.question_index_path(@socket, :edit, question) %>
           </td>
           <% end %>
 
           <%= if @current_user && @current_user.is_admin do %>
-          <td class="action-cell">
+          <td class="action-cell hidden sm:block">
             <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: question.id, data: [confirm: "Are you sure?"] %>
           </td>
           <% end %>
