@@ -2,6 +2,7 @@ defmodule QuizzicalWeb.QuestionLiveTest do
   use QuizzicalWeb.ConnCase
 
   import Phoenix.LiveViewTest
+  import Quizzical.AccountsFixtures
 
   alias Quizzical.Questions
 
@@ -21,6 +22,7 @@ defmodule QuizzicalWeb.QuestionLiveTest do
 
   describe "Index" do
     setup [:create_question]
+    setup :register_and_log_in_admin
 
     test "lists all questions", %{conn: conn, question: question} do
       {:ok, _index_live, html} = live(conn, Routes.question_index_path(conn, :index))
@@ -32,7 +34,7 @@ defmodule QuizzicalWeb.QuestionLiveTest do
     test "saves new question", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.question_index_path(conn, :index))
 
-      assert index_live |> element("button", "New question") |> render_click() =~
+      assert index_live |> element("button", "New question") |> render_submit() =~
                "New question"
 
       assert_patch(index_live, Routes.question_index_path(conn, :new))

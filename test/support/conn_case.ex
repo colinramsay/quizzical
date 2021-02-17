@@ -51,6 +51,26 @@ defmodule QuizzicalWeb.ConnCase do
   """
   def register_and_log_in_user(%{conn: conn}) do
     user = Quizzical.AccountsFixtures.user_fixture()
+
+    user |> Quizzical.Accounts.User.confirm_changeset() |> Quizzical.Repo.update()
+
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @spec register_and_log_in_admin(%{:conn => Plug.Conn.t(), optional(any) => any}) :: %{
+          conn: Plug.Conn.t(),
+          user: %{
+            :__struct__ => atom | %{:__changeset__ => any, optional(any) => any},
+            :id => any,
+            optional(atom) => any
+          }
+        }
+  def register_and_log_in_admin(%{conn: conn}) do
+    IO.puts("ADMIN LOGIN")
+    user = Quizzical.AccountsFixtures.user_fixture(%{is_admin: true})
+
+    user |> Quizzical.Accounts.User.confirm_changeset() |> Quizzical.Repo.update!()
+
     %{conn: log_in_user(conn, user), user: user}
   end
 

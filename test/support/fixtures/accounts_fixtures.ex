@@ -16,6 +16,8 @@ defmodule Quizzical.AccountsFixtures do
       })
       |> Quizzical.Accounts.register_user()
 
+    Quizzical.Repo.update!(Ecto.Changeset.change(user, attrs))
+
     user
   end
 
