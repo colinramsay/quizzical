@@ -5,8 +5,8 @@ defmodule QuizzicalWeb.QuestionLiveTest do
 
   alias Quizzical.Questions
 
-  @create_attrs %{question: "some question"}
-  @update_attrs %{question: "some updated question"}
+  @create_attrs %{question: "some question", answer: "some answer"}
+  @update_attrs %{question: "some updated question", answer: "some updated answer"}
   @invalid_attrs %{question: nil}
 
   defp fixture(:question) do
@@ -32,8 +32,8 @@ defmodule QuizzicalWeb.QuestionLiveTest do
     test "saves new question", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.question_index_path(conn, :index))
 
-      assert index_live |> element("a", "New Question") |> render_click() =~
-               "New Question"
+      assert index_live |> element("button", "New question") |> render_click() =~
+               "New question"
 
       assert_patch(index_live, Routes.question_index_path(conn, :new))
 

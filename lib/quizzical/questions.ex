@@ -35,7 +35,7 @@ defmodule Quizzical.Questions do
       [%Question{}, ...]
 
   """
-  def list_questions(paginate_options) do
+  def list_questions(paginate_options \\ %{page: 1, per_page: 100}) do
     query = from q in Question, preload: :categories
     Repo.paginate(query, paginate_options)
   end
@@ -123,7 +123,7 @@ defmodule Quizzical.Questions do
   """
   def delete_question(%Question{} = question) do
     Question.changeset(question, %{})
-    |> Repo.delete!()
+    |> Repo.delete()
   end
 
   @doc """

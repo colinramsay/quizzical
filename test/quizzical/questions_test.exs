@@ -6,8 +6,8 @@ defmodule Quizzical.QuestionsTest do
   describe "questions" do
     alias Quizzical.Questions.Question
 
-    @valid_attrs %{question: "some question"}
-    @update_attrs %{question: "some updated question"}
+    @valid_attrs %{question: "some question", answer: "some answer"}
+    @update_attrs %{question: "some updated question", answer: "some updated answer"}
     @invalid_attrs %{question: nil}
 
     def question_fixture(attrs \\ %{}) do
@@ -21,7 +21,7 @@ defmodule Quizzical.QuestionsTest do
 
     test "list_questions/0 returns all questions" do
       question = question_fixture()
-      assert Questions.list_questions() == [question]
+      assert Questions.list_questions().results == [question]
     end
 
     test "get_question!/1 returns the question with given id" do
