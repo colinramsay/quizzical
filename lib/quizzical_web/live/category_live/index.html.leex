@@ -20,8 +20,8 @@
       <tr id="category-<%= category.id %>">
         <td class="px-6 py-4 whitespace-nowrap"><%= live_patch category.name, to: Routes.category_show_path(@socket, :show, category) %></td>
         <%= if @current_user && @current_user.is_admin do %>
-        <td class="action-cell"><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category) %></td>
-        <td class="action-cell"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></td>
+        <td class="action-cell"><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category), class: "edit" %></td>
+        <td class="action-cell"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, class: "delete", data: [confirm: "Are you sure?"] %></td>
         <% end %>
       </tr>
     <% end %>
