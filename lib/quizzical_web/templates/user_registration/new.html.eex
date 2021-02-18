@@ -1,9 +1,7 @@
 <div class="auth-container">
   <div class="max-w-md w-full space-y-8">
     <div>
-      <h2>
-        Sign up to Quizzical
-      </h2>
+      <h2>Sign up to Quizzical</h2>
     </div>
     <%= form_for @changeset, Routes.user_registration_path(@conn, :create), [class: "auth"], fn f -> %>
       <input type="hidden" name="remember" value="true">

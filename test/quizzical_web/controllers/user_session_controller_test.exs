@@ -11,9 +11,9 @@ defmodule QuizzicalWeb.UserSessionControllerTest do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h2>Log in</h2>"
-      assert response =~ "Log in</a>"
-      assert response =~ "Register</a>"
+      assert response =~ "<h2>Sign in to Quizzical</h2>"
+      assert response =~ "Sign in\n</button>"
+      # assert response =~ "Register</a>"
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -75,7 +75,7 @@ defmodule QuizzicalWeb.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h2>Log in</h2>"
+      assert response =~ "<h2>Sign in to Quizzical</h2>"
       assert response =~ "Invalid email or password"
     end
   end

@@ -1,9 +1,7 @@
 <div class="auth-container">
   <div class="max-w-md w-full space-y-8">
     <div>
-      <h2>
-        Resend confirmation instructions
-      </h2>
+      <h2>Resend confirmation instructions</h2>
     </div>
 
     <%= form_for :user, Routes.user_confirmation_path(@conn, :create), [class: 'auth'], fn f -> %>
