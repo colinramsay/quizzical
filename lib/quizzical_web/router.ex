@@ -20,6 +20,9 @@ defmodule QuizzicalWeb.Router do
   scope "/", QuizzicalWeb do
     pipe_through :browser
 
+    get "/attribution", PageController, :attribution
+    get "/privacy", PageController, :privacy
+
     live "/", QuestionLive.Index, :index
     live "/questions/:id/edit", QuestionLive.Index, :edit
     live "/questions/new", QuestionLive.Index, :new

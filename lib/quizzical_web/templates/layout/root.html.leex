@@ -18,11 +18,11 @@
     <% end %>
   </head>
   <body>
-    <div>
+    <div class="flex flex-col min-h-screen">
 
     <%= render QuizzicalWeb.SharedView, "nav.html", assigns %>
 
-    <main>
+    <main class="flex-grow">
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Replace with your content -->
         <div class="px-4 py-6 sm:px-0">
@@ -36,5 +36,13 @@
         <!-- /End replace -->
       </div>
     </main>
+
+    <footer class="bg-indigo-900 text-right p-2">
+      <%= link "Credits & attribution", to: Routes.page_path(@conn, :attribution), class: "text-white text-sm" %>
+      <span class="text-white">|</span>
+      <%= link "Privacy", to: Routes.page_path(@conn, :privacy), class: "text-white text-sm" %>
+    </footer>
+
+    </div>
   </body>
 </html>

@@ -2,7 +2,6 @@ defmodule QuizzicalWeb.QuestionLiveTest do
   use QuizzicalWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import Quizzical.AccountsFixtures
 
   alias Quizzical.Questions
 
