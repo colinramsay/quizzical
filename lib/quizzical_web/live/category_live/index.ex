@@ -17,10 +17,10 @@ defmodule QuizzicalWeb.CategoryLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, :edit, %{"slug" => slug}) do
     socket
     |> assign(:page_title, "Edit Category")
-    |> assign(:category, Categories.get_category!(id))
+    |> assign(:category, Categories.get_category_by_slug!(slug))
   end
 
   defp apply_action(socket, :new, _params) do

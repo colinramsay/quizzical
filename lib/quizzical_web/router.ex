@@ -27,7 +27,7 @@ defmodule QuizzicalWeb.Router do
 
     live "/categories", CategoryLive.Index, :index
     live "/categories/new", CategoryLive.Index, :new
-    live "/categories/:id/edit", CategoryLive.Index, :edit
+    live "/categories/:slug/edit", CategoryLive.Index, :edit
 
     live "/categories/:slug", CategoryLive.Show, :show
     live "/categories/:slug/show/edit", CategoryLive.Show, :edit

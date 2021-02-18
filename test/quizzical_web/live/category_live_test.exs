@@ -2,6 +2,7 @@ defmodule QuizzicalWeb.CategoryLiveTest do
   use QuizzicalWeb.ConnCase
 
   import Phoenix.LiveViewTest
+  import Quizzical.AccountsFixtures
 
   alias Quizzical.Categories
 
@@ -21,6 +22,8 @@ defmodule QuizzicalWeb.CategoryLiveTest do
 
   describe "Index" do
     setup [:create_category]
+
+    setup :register_and_log_in_admin
 
     test "lists all categories", %{conn: conn, category: category} do
       {:ok, _index_live, html} = live(conn, Routes.category_index_path(conn, :index))
