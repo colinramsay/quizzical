@@ -12,6 +12,7 @@ config :quizzical,
 
 # Configures the endpoint
 config :quizzical, QuizzicalWeb.Endpoint,
+  http: [compress: true],
   url: [host: "localhost"],
   secret_key_base: "iTy2Ej/rQI8fp3xgEh4Ixy8XRKIuM5AvPrshe3GNMQQ9siB+DJ08Vb2olNjSzKN7",
   render_errors: [view: QuizzicalWeb.ErrorView, accepts: ~w(html json), layout: false],
