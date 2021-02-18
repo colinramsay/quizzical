@@ -54,7 +54,7 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     {:ok, _} = Questions.delete_question(question)
 
     {:noreply,
-     assign(socket, :questions, Quizzical.Questions.list_questions())
+     assign(socket, :question_page, Quizzical.Questions.list_questions())
      |> put_flash(:info, "Question deleted")}
   end
 
