@@ -24,8 +24,7 @@
 <% end %>
 <% end %>
 
-<%= live_component(socket, QuizzicalWeb.ListComponent, [options: @options, socket: @socket, question_page: @question_page, current_user: @current_user]) %>
-
+<%= render QuizzicalWeb.SharedView, "question_list.html", assigns %>
 
 <div class="pagination">
   <%= if @options.page > 1 do %>
