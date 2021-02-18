@@ -34,7 +34,7 @@ defmodule QuizzicalWeb.QuestionLiveTest do
     test "saves new question", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.question_index_path(conn, :index))
 
-      assert index_live |> element("button", "New question") |> render_submit() =~
+      assert index_live |> element("a", "New question") |> render_click() =~
                "New question"
 
       assert_patch(index_live, Routes.question_index_path(conn, :new))

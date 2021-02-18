@@ -15,8 +15,6 @@ defmodule Quizzical.Questions do
     questions_attrs
     |> Enum.with_index()
     |> Enum.reduce(Ecto.Multi.new(), fn {attrs, idx}, multi ->
-      IO.inspect(attrs)
-
       question_changeset =
         %Question{}
         |> Question.changeset(attrs)

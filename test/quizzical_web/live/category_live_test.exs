@@ -54,7 +54,7 @@ defmodule QuizzicalWeb.CategoryLiveTest do
     test "updates category in listing", %{conn: conn, category: category} do
       {:ok, index_live, _html} = live(conn, Routes.category_index_path(conn, :index))
 
-      assert index_live |> element("#category-#{category.id} a", "Edit") |> render_click() =~
+      assert index_live |> element("#category-#{category.id} a.edit", "Edit") |> render_click() =~
                "Edit Category"
 
       assert_patch(index_live, Routes.category_index_path(conn, :edit, category))
@@ -76,7 +76,10 @@ defmodule QuizzicalWeb.CategoryLiveTest do
     test "deletes category in listing", %{conn: conn, category: category} do
       {:ok, index_live, _html} = live(conn, Routes.category_index_path(conn, :index))
 
-      assert index_live |> element("#category-#{category.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#category-#{category.id} a.delete", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#category-#{category.id}")
     end
   end

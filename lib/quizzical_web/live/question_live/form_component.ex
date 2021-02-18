@@ -28,8 +28,6 @@ defmodule QuizzicalWeb.QuestionLive.FormComponent do
   end
 
   defp save_question(socket, :edit, question_params) do
-    IO.inspect(question_params)
-
     case Questions.update_question(socket.assigns.question, question_params) do
       {:ok, _question} ->
         {:noreply,

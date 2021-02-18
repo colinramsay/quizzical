@@ -66,7 +66,6 @@ defmodule QuizzicalWeb.ConnCase do
           }
         }
   def register_and_log_in_admin(%{conn: conn}) do
-    IO.puts("ADMIN LOGIN")
     user = Quizzical.AccountsFixtures.user_fixture(%{is_admin: true})
 
     user |> Quizzical.Accounts.User.confirm_changeset() |> Quizzical.Repo.update!()
