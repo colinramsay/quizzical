@@ -14,6 +14,7 @@ defmodule Quizzical.Categories.Category do
   def changeset(category, attrs) do
     category
     |> cast(attrs, [:name])
+    |> unique_constraint(:name)
     |> validate_required([:name])
     |> slugify_name()
   end

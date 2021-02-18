@@ -2,16 +2,18 @@ defmodule QuizzicalWeb.CategoryLiveTest do
   use QuizzicalWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import Quizzical.AccountsFixtures
-
+  import Quizzical.QuizFixtures
   alias Quizzical.Categories
 
-  @create_attrs %{name: "some name"}
-  @update_attrs %{name: "some updated name"}
+  @update_attrs %{name: unique_category_name()}
   @invalid_attrs %{name: nil}
 
+  defp create_attrs() do
+    %{name: unique_category_name()}
+  end
+
   defp fixture(:category) do
-    {:ok, category} = Categories.create_category(@create_attrs)
+    {:ok, category} = Categories.create_category(create_attrs())
     category
   end
 
@@ -44,14 +46,16 @@ defmodule QuizzicalWeb.CategoryLiveTest do
              |> form("#category-form", category: @invalid_attrs)
              |> render_change() =~ "can&apos;t be blank"
 
+      new_category_attrs = create_attrs()
+
       {:ok, _, html} =
         index_live
-        |> form("#category-form", category: @create_attrs)
+        |> form("#category-form", category: new_category_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.category_index_path(conn, :index))
 
       assert html =~ "Category created successfully"
-      assert html =~ "some name"
+      assert html =~ new_category_attrs.name
     end
 
     test "updates category in listing", %{conn: conn, category: category} do
@@ -73,7 +77,7 @@ defmodule QuizzicalWeb.CategoryLiveTest do
         |> follow_redirect(conn, Routes.category_index_path(conn, :index))
 
       assert html =~ "Category updated successfully"
-      assert html =~ "some updated name"
+      assert html =~ @update_attrs.name
     end
 
     test "deletes category in listing", %{conn: conn, category: category} do
