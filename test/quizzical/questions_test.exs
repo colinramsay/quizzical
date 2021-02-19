@@ -2,6 +2,7 @@ defmodule Quizzical.QuestionsTest do
   use Quizzical.DataCase
 
   alias Quizzical.Questions
+  import Quizzical.AccountsFixtures
 
   describe "questions" do
     alias Quizzical.Questions.Question
@@ -22,6 +23,20 @@ defmodule Quizzical.QuestionsTest do
     test "list_questions/0 returns all questions" do
       question = question_fixture()
       assert Questions.list_questions().results == [question]
+    end
+
+    # test "list_questions/1 returns questions not hidden by user" do
+    #   # select * from questions q where not q.id in (select question_id from hidden_questions hq where user_id = 1)
+    # end
+
+    test "hide_question/1 adds join table entry" do
+      user = user_fixture()
+      question = question_fixture()
+      Questions.hide_question(question, user)
+
+      user = Quizzical.Repo.preload(user, :hidden_questions)
+
+      assert hd(user.hidden_questions).id == question.id
     end
 
     test "get_question!/1 returns the question with given id" do

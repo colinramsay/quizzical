@@ -7,6 +7,14 @@ defmodule Quizzical.Questions do
   alias Quizzical.Repo
   alias Quizzical.Questions.Question
 
+  def hide_question(question, user) do
+    user
+    |> Repo.preload(:hidden_questions)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:hidden_questions, [question])
+    |> Repo.update!()
+  end
+
   @doc """
   ### Examples
   iex> create_questions([%{"question": "q", "answer": "a", "categories": ["cat1", "cat2"]},%{...}])

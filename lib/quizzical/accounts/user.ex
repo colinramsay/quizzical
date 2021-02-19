@@ -10,6 +10,10 @@ defmodule Quizzical.Accounts.User do
     field :confirmed_at, :naive_datetime
     field :is_admin, :boolean
 
+    many_to_many :hidden_questions, Quizzical.Questions.Question,
+      join_through: "hidden_questions",
+      on_replace: :delete
+
     timestamps()
   end
 
