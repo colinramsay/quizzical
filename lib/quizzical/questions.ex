@@ -144,4 +144,26 @@ defmodule Quizzical.Questions do
   def change_question(%Question{} = question, attrs \\ %{}) do
     Question.changeset(question, attrs)
   end
+
+  def not_hidden(user) do
+    sq = from hq in "hidden_questions", where: hq.user_id == ^user.id, select: hq.question_id
+
+    query =
+      from q in Question,
+        where: not (q.id in subquery(sq))
+
+    Repo.all(query)
+
+    # select * from questions q where not q.id in (select question_id from hidden_questions hq where user_id = 1)
+  end
+
+  def hidden(user) do
+    sq = from hq in "hidden_questions", where: hq.user_id == ^user.id, select: hq.question_id
+
+    query =
+      from q in Question,
+        where: q.id in subquery(sq)
+
+    Repo.all(query)
+  end
 end

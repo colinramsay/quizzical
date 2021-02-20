@@ -25,9 +25,16 @@ defmodule Quizzical.QuestionsTest do
       assert Questions.list_questions().results == [question]
     end
 
-    # test "list_questions/1 returns questions not hidden by user" do
-    #   # select * from questions q where not q.id in (select question_id from hidden_questions hq where user_id = 1)
-    # end
+    test "not_hidden/1 returns questions not hidden by user" do
+      user = user_fixture()
+      question_hidden = question_fixture()
+      question_shown = question_fixture()
+
+      Questions.hide_question(question_hidden, user)
+
+      assert hd(Questions.not_hidden(user)).id == question_shown.id
+      assert hd(Questions.hidden(user)).id == question_hidden.id
+    end
 
     test "hide_question/1 adds join table entry" do
       user = user_fixture()
