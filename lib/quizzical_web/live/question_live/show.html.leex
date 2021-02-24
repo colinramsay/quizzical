@@ -1,22 +1,21 @@
-<h2>Show Question</h2>
+<div class="full-screen flex flex-col">
+  <%= if @live_action in [:edit] do %>
+    <%= live_modal @socket, QuizzicalWeb.QuestionLive.FormComponent,
+      id: @question.id,
+      title: @page_title,
+      action: @live_action,
+      question: @question,
+      return_to: Routes.question_show_path(@socket, :show, @question) %>
+  <% end %>
 
-<%= if @live_action in [:edit] do %>
-  <%= live_modal @socket, QuizzicalWeb.QuestionLive.FormComponent,
-    id: @question.id,
-    title: @page_title,
-    action: @live_action,
-    question: @question,
-    return_to: Routes.question_show_path(@socket, :show, @question) %>
-<% end %>
+  <div class="flex-1 flex flex-col tracking-widest text-center uppercase leading-loose container mx-auto text-gray-900 justify-center" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
+    <p><%= @question.question %>?</p>
+    <hr/>
+    <p><%= @question.answer %></p>
+  </div>
 
-<ul>
-
-  <li>
-    <strong>Question:</strong>
-    <%= @question.question %>
-  </li>
-
-</ul>
-
-<span><%= live_patch "Edit", to: Routes.question_show_path(@socket, :edit, @question), class: "button" %></span>
-<span><%= live_redirect "Back", to: Routes.question_index_path(@socket, :index) %></span>
+  <footer class="bg-indigo-700 flex justify-items-stretch flex-row">
+    <%= live_redirect "Close", to: Routes.question_index_path(@socket, :index), class: "flex-grow" %>
+    <%= live_redirect "Next question", to: Routes.question_show_path(@socket, :show, @next_question), class: "flex-grow" %>
+  </footer>
+</div>

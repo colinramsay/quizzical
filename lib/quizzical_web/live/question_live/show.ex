@@ -13,7 +13,8 @@ defmodule QuizzicalWeb.QuestionLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:question, Questions.get_question!(id))}
+     |> assign(:question, Questions.get_question!(id))
+     |> assign(:next_question, Questions.random())}
   end
 
   defp page_title(:show), do: "Show Question"

@@ -22,15 +22,13 @@
 
     <%= render QuizzicalWeb.SharedView, "nav.html", assigns %>
 
-    <main class="flex-grow">
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <main role="main" class="flex-grow">
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8  container">
         <!-- Replace with your content -->
         <div class="px-4 py-6 sm:px-0">
 
 
-          <main role="main" class="container">
-    <%= @inner_content %>
-      </main>
+        <%= @inner_content %>
 
         </div>
         <!-- /End replace -->

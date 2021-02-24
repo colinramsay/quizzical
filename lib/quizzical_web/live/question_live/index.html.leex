@@ -24,6 +24,9 @@
 <% end %>
 <% end %>
 
+<%= live_patch "Random question", to: Routes.question_show_path(@socket, :show, @next_question), class: "button" %>
+
+
 <%= render QuizzicalWeb.SharedView, "question_list.html", assigns %>
 
 <div class="pagination">

@@ -145,6 +145,15 @@ defmodule Quizzical.Questions do
     Question.changeset(question, attrs)
   end
 
+  def random() do
+    query =
+      from Question,
+        order_by: fragment("RANDOM()"),
+        limit: 1
+
+    Repo.one(query)
+  end
+
   def not_hidden(user) do
     sq = from hq in "hidden_questions", where: hq.user_id == ^user.id, select: hq.question_id
 

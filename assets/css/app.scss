@@ -5,6 +5,18 @@
 
 @tailwind components;
 
+.full-screen {
+  @apply fixed h-screen w-screen inset-0 prose-xl bg-white ;
+
+  p {
+    @apply text-5xl mb-0 mt-0;
+  }
+
+  footer a {
+    @apply text-white px-4 py-4 hover:bg-indigo-900 text-center;
+  }
+}
+
 .totaliser {
   @apply text-sm;
 }

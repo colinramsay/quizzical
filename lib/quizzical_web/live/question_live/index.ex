@@ -22,8 +22,14 @@ defmodule QuizzicalWeb.QuestionLive.Index do
     page = String.to_integer(params["page"] || "1")
     paginate_options = %{page: page, per_page: 100}
     question_page = Quizzical.Questions.list_questions(paginate_options)
+    next_question = Questions.random()
 
-    socket = assign(socket, options: paginate_options, question_page: question_page)
+    socket =
+      assign(socket,
+        options: paginate_options,
+        question_page: question_page,
+        next_question: next_question
+      )
 
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
