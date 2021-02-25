@@ -5,5 +5,11 @@
         "**/node_modules": true,
         "**/.elixir_ls": true,
         "**/_build": true
-    }
+    },
+    "scss.validate": false,
+    "prettier.prettierPath": "./assets/node_modules/prettier",
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "tailwindCSS.emmetCompletions": true
 }

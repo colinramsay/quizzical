@@ -2,7 +2,7 @@ module.exports = {
   purge: {
     mode: 'all',
     preserveHtmlElements: false,
-    enabled: true,
+    enabled: rtue,
     content: [
       "../**/*.html.eex",
       "../**/*.html.leex",

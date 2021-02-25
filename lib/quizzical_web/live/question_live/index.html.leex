@@ -1,40 +1,52 @@
 <%= if @live_action in [:new, :edit] do %>
-  <%= live_modal @socket, QuizzicalWeb.QuestionLive.FormComponent,
-    id: @question.id || :new,
-    title: @page_title,
-    action: @live_action,
-    question: @question,
-    categories: @categories,
-    return_to: Routes.question_index_path(@socket, :index) %>
+  <%= live_modal(@socket, QuizzicalWeb.QuestionLive.FormComponent,
+        id: @question.id || :new,
+        title: @page_title,
+        action: @live_action,
+        question: @question,
+        categories: @categories,
+        return_to: Routes.question_index_path(@socket, :index)
+      ) %>
 <% end %>
 
 <%= if @current_user && @current_user.is_admin do %>
+  <form phx-submit="save_upload" phx-change="validate_upload">
+    <%= for entry <- @uploads.question_data.entries do %>
+      <%= entry.client_name %> - <%= entry.progress %>%
+    <% end %>
+    <%= live_file_input @uploads.question_data %>
+    <button class="button" type="submit">Upload</button>
+  </form>
 
-<form phx-submit="save_upload" phx-change="validate_upload">
-<%= for entry <- @uploads.question_data.entries do %>
-<%= entry.client_name %> - <%= entry.progress %>%
-<% end %>
-  <%= live_file_input @uploads.question_data %>
-  <button class="button" type="submit">Upload</button>
-</form>
-
-
-<%= live_patch to: Routes.question_index_path(@socket, :new) do %>
-<button class="button" autofocus>New question</button>
-<% end %>
+  <%= live_patch to: Routes.question_index_path(@socket, :new) do %>
+    <button class="button" autofocus>New question</button>
+  <% end %>
 <% end %>
 
 <%= live_patch "Random question", to: Routes.question_show_path(@socket, :show, @next_question), class: "button" %>
 
-
 <%= render QuizzicalWeb.SharedView, "question_list.html", assigns %>
 
 <div class="pagination">
+
+
   <%= if @options.page > 1 do %>
     <%= live_patch to: Routes.question_index_path(@socket, :index, page: @options.page - 1), class: 'previous' do %>
-      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-            </svg>Previous
+      <svg
+        class="h-5 w-5"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+
+
+
+        <path
+          fill-rule="evenodd"
+          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+          clip-rule="evenodd"
+        /></svg>Previous
     <% end %>
   <% end %>
 
@@ -43,7 +55,11 @@
   <%= live_patch to: Routes.question_index_path(@socket, :index, page: @options.page + 1), class: 'next' do %>
     Next
     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      <path
+        fill-rule="evenodd"
+        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+        clip-rule="evenodd"
+      />
     </svg>
   <% end %>
 </div>
