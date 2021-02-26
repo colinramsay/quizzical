@@ -4,6 +4,10 @@
 @tailwind base;
 @tailwind components;
 
+iframe {
+  display: none;
+}
+
 .full-screen {
   @apply fixed h-screen w-screen inset-0 prose-xl bg-white ;
 

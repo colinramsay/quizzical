@@ -8,14 +8,14 @@
       return_to: Routes.question_show_path(@socket, :show, @question) %>
   <% end %>
 
-  <div class="flex-1 flex flex-col tracking-widest text-center uppercase leading-loose container mx-auto text-gray-900 justify-center">
+  <div class="tracking-widest text-center leading-loose text-gray-900 overflow-auto p-6 flex-1 flex flex-col justify-center">
     <p class=" sm:text-5xl"><%= @question.question %>?</p>
     <hr/>
     <p><%= @question.answer %></p>
   </div>
 
   <footer class="bg-indigo-700 flex justify-items-stretch flex-row">
-    <%= live_redirect "Close", to: Routes.question_index_path(@socket, :index), class: "flex-grow" %>
-    <%= live_redirect "Next question", to: Routes.question_show_path(@socket, :show, @next_question), class: "flex-grow" %>
+    <%= live_patch "Close", to: Routes.question_index_path(@socket, :index), class: "flex-grow" %>
+    <%= live_patch "Next question", to: Routes.question_show_path(@socket, :show, @next_question), class: "flex-grow" %>
   </footer>
 </div>
