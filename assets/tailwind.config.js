@@ -1,14 +1,7 @@
 module.exports = {
   purge: {
-    mode: 'all',
-    preserveHtmlElements: false,
-    enabled: true,
     content: [
-      "../**/*.html.eex",
-      "../**/*.html.leex",
-      "../**/views/**/*.ex",
-      "../**/live/**/*.ex",
-      "./js/**/*.js"
+      "../**/*.html.heex"
     ]
   },
   darkMode: false, // or 'media' or 'class'

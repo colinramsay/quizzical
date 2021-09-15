@@ -3,7 +3,7 @@
     <div>
       <h2>Sign in to Quizzical</h2>
     </div>
-    <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user, class: 'auth'], fn f -> %>
+    <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user, class: "auth"], fn f -> %>
 
 
   <%= if @error_message do %>
@@ -13,12 +13,12 @@
   <% end %>
       <div class="-space-y-px">
         <div>
-          <%= label f, :email, class: 'sr-only' %>
+          <%= label f, :email, class: "sr-only" %>
           <%= email_input f, :email, required: true, class: "rounded-t-md", placeholder: "Email address" %>
           <%= error_tag f, :email %>
         </div>
         <div>
-          <%= label f, :password, class: 'sr-only' %>
+          <%= label f, :password, class: "sr-only" %>
           <%= password_input f, :password, required: true, class: "rounded-b-md", placeholder: "Password" %>
           <%= error_tag f, :password %>
         </div>
@@ -29,10 +29,9 @@
             <%= checkbox f, :remember_me, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
             <%= label f, :remember_me, "Keep me logged in for 60 days", class: "ml-2 block text-sm text-gray-900 not-sr-only" %>
           </div>
-          <!--
         <div class="text-sm">
           <%= link "Or, sign up", to: Routes.user_session_path(@conn, :new), class: "font-medium text-indigo-600 hover:text-indigo-500" %>
-        </div>-->
+        </div>
 
         <div class="text-sm">
           <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "font-medium text-indigo-600 hover:text-indigo-500" %>

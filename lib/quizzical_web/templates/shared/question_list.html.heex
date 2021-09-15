@@ -4,7 +4,7 @@
       <%= for question <- @question_page.results do %>
         <tr
           class="flex flex-col sm:table-row mb-6 sm:mb-0 rounded-lg sm:rounded-none border sm:border-0 sm:border-b"
-          id="question-<%= question.id %>"
+          id={"question-#{question.id}"}
         >
           <td class="px-6 py-4 break-all sm:break-normal">
             <strong><%= question.question %>?</strong>
