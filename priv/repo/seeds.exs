@@ -12,4 +12,10 @@
 { _, science } = Quizzical.Categories.create_category(%{ name: "Science" })
 Quizzical.Categories.create_category(%{ name: "Music" })
 Quizzical.Categories.create_category(%{ name: "Film / Movies" })
-Quizzical.Questions.create_question(%{ question: 'Why', answer: 'Because', category_id: science.id})
+Quizzical.Questions.create_question()
+
+%Quizzical.Questions.Question{} |> Quizzical.Questions.Question.changeset(%{ question: "Why", answer: "Because", category_id: science.id}) |> Quizzical.Repo.insert!()
+
+{ _, u } = Quizzical.Accounts.register_user(%{email: "hello@gotripod.com", password: "Testing123!", is_admin: true})
+cs = Quizzical.Accounts.User.confirm_changeset(u)
+Quizzical.Repo.update!(cs)
