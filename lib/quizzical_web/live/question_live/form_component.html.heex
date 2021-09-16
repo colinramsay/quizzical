@@ -1,9 +1,6 @@
+<div>
 
-<.form let={f} @changeset, "#",
-  phx_target: @myself,
-  phx_change: "validate",
-  phx_submit: "save", id: "question-form" %>
-
+<.form let={f} for={@changeset} phx_target={@myself} phx_change="validate" phx_submit="save", id="question-form">
   <div class="modal-content">
     <div class="w-full">
       <h3 class="modal-header mb-4" id="modal-headline">
@@ -39,3 +36,4 @@
   </div>
 
 </.form>
+</div>

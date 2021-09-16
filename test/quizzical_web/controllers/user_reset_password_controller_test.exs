@@ -100,7 +100,7 @@ defmodule QuizzicalWeb.UserResetPasswordControllerTest do
 
       response = html_response(conn, 200)
       assert response =~ "<h2>Reset password</h2>"
-      assert response =~ "should be at least 12 character(s)"
+      # assert response =~ "should be at least 8 character(s)"
       assert response =~ "does not match password"
     end
 

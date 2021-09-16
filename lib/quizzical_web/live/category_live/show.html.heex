@@ -1,3 +1,4 @@
+<div>
 <h2><%= @category.name %> questions</h2>
 
 <%= if @current_user && @current_user.is_admin do %>
@@ -31,3 +32,4 @@
 </div>
 
 <%= live_redirect "Back to the Category list", to: Routes.category_index_path(@socket, :index), class: 'mt-4 block text-right' %>
+</div>

@@ -4,7 +4,7 @@
       <h2>Change email</h2>
     </div>
 
-<%= form_for @email_changeset, Routes.user_settings_path(@conn, :update), [class: 'auth'], fn f -> %>
+<%= form_for @email_changeset, Routes.user_settings_path(@conn, :update), [class: "auth"], fn f -> %>
   <%= if @email_changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -13,10 +13,10 @@
 
 
   <%= label f, :email %>
-  <%= email_input f, :email, required: true, placeholder: "Email address", class: 'sr-only' %>
+  <%= email_input f, :email, required: true, placeholder: "Email address", class: "sr-only" %>
   <%= error_tag f, :email %>
 
-  <%= label f, :current_password, for: "current_password_for_email", class: 'sr-only' %>
+  <%= label f, :current_password, for: "current_password_for_email", class: "sr-only" %>
   <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email", placeholder: "Current password" %>
   <%= error_tag f, :current_password %>
 
@@ -36,15 +36,15 @@
 
   <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
-  <%= label f, :password, "New password", class: 'sr-only' %>
+  <%= label f, :password, "New password", class: "sr-only" %>
   <%= password_input f, :password, required: true, placeholder: "New password" %>
   <%= error_tag f, :password %>
 
-  <%= label f, :password_confirmation, "Confirm new password", class: 'sr-only' %>
+  <%= label f, :password_confirmation, "Confirm new password", class: "sr-only" %>
   <%= password_input f, :password_confirmation, required: true, placeholder: "Confirm new password" %>
   <%= error_tag f, :password_confirmation %>
 
-  <%= label f, :current_password, for: "current_password_for_password", class: 'sr-only' %>
+  <%= label f, :current_password, for: "current_password_for_password", class: "sr-only" %>
   <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password", placeholder: "Current password" %>
   <%= error_tag f, :current_password %>
 
