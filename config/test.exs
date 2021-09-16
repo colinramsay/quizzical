@@ -10,11 +10,14 @@ config :bcrypt_elixir, :log_rounds, 1
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
+hn = if System.get_env("GITHUB_ACTIONS"), do: "localhost", else: "db"
+
+
 config :quizzical, Quizzical.Repo,
   username: "postgres",
   password: "postgres",
   database: "quizzical_test#{System.get_env("MIX_TEST_PARTITION")}",
-  hostname: "db",
+  hostname: hn,
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
